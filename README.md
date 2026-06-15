@@ -82,8 +82,11 @@ waitForQualityGate abortPipeline:true pauses the pipeline, waits for SonarQube's
 
 Pipeline runs end-to-end successfully:
 
+<img width="1846" height="591" alt="image" src="https://github.com/user-attachments/assets/b0b2c304-0288-42b6-a17a-8fead7b71e86" />
+
 SonarQube analysis output:
 
+<img width="1894" height="805" alt="image" src="https://github.com/user-attachments/assets/4a362c61-6b33-47cd-914e-cb25ab176670" />
 
 Key takeaways: --no-cache is essential when a Dockerfile change doesn't appear to take effect. 
 Services on the same custom Docker network communicate via container name.
