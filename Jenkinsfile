@@ -8,6 +8,14 @@ pipeline {
             }
         }
 
+    
+        stage('Trivy Scan') {
+            steps {
+                sh 'trivy fs --exit-code 1 --severity HIGH,CRITICAL .'
+            }
+        }
+
+
         stage('Restore') {
             steps {
                 sh 'dotnet restore'
