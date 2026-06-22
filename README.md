@@ -102,6 +102,13 @@ SonarQube analysis output:
 
 <img width="1894" height="805" alt="image" src="https://github.com/user-attachments/assets/4a362c61-6b33-47cd-914e-cb25ab176670" />
 
+Trivy Build:
+
+<img width="1458" height="878" alt="image" src="https://github.com/user-attachments/assets/739c4a06-36cd-4bc2-96d8-8a1aa26aa5a1" />
+<img width="1865" height="849" alt="image" src="https://github.com/user-attachments/assets/3940c184-7dea-45f5-ad98-74c787320426" />
+
+
+
 Key takeaways: --no-cache is essential when a Dockerfile change doesn't appear to take effect. 
 Services on the same custom Docker network communicate via container name.
 SonarQube Jenkins integration requires a webhook
