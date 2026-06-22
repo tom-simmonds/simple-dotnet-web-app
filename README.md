@@ -44,8 +44,8 @@ The Dockerfile for this image is located in:
 A new jenkins image (jenkins-dotnet-sonar) was built on top of jenkins/jenkins:lts, adding the following:
 - .NET SDK 8 installed with official Microsoft script
 - libicu-dev required by .NET
-- dotnet-sonarscanner installed as a global .NET tool, run as the jenkins user
-- PATH/DOTNET_ROOT updated so dotnet and sonarscanner global tool is available to Jenkins
+- dotnet-sonarscanner installed as root .NET tool to /usr/local/bin
+- PATH/DOTNET_ROOT updated so dotnet and sonarscanner tool is available to Jenkins
 
 I have chosen to bake tools into the image rather than install at pipeline runtime. This ensures immutable infrastructure.
 
@@ -77,6 +77,20 @@ End - packages everything collected and uploads it to the SonarQube server for a
 /k: is the project key - telling SonarQube which project these results belong to. 
 Quality gate is a set of pass/fail conditions definited in SonarQube.
 waitForQualityGate abortPipeline:true pauses the pipeline, waits for SonarQube's webhook callback with the result and fails the build if the gate isn't passed.
+
+### Trivy Security Scanning
+
+Trivy is an open-source vulnerability scanner by Aquasecurity. It is baked into the custom Jenkins image alongside .NET and dotnet-sonarscanner.
+Trivy is run in filesystem (fs) mode, scanning the repository csproj directly for known CVEs. 
+Image scanning is not used as the pipeline does not produce a Docker image of the application, but this would make a good next step/stretch goal.
+
+- Trivy is installed via the official install script during the Docker image build
+- The scan stage runs immediately after Checkout, before Restore - catching vulnerable dependencies before any building.
+- --exit-code 1 causes the pipeline to fail if vulnerabilities are found at configured threshhold below
+- severity HIGH, CRITICAL sets the gate threshold
+
+HIGH and CRITICAL correspond to CVSS (Common Vulnerability Scoring System) Scores ranging from 0.0 to 10.0 (hHIGH and CRITICAL = 7.0 and above, vulnerabilities with significant impact)
+
 
 ### Result
 
