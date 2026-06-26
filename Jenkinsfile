@@ -25,7 +25,7 @@ pipeline {
         stage('SonarQube Begin') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh 'dotnet sonarscanner begin /k:"simple-dotnet-web-app"'
+                    sh 'dotnet sonarscanner begin /k:"simple-dotnet-web-app" /d:sonar.exclusions="**/bin/**,**/obj/**,**/*.html,reports/**"' 
                 } 
             }
         }
