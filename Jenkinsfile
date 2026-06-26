@@ -42,6 +42,23 @@ pipeline {
             }
         }
 
+        
+
+        stage('Trivy HTML Report') {
+            steps {
+                sh '''
+                trivy fs --format template \
+                --template "@contrib/html.tpl" \
+                -o trivy-report.html \
+                .
+                '''
+                archiveArtifacts artifacts: 'trivy-report.html', fingerprint: true
+            }
+        }
+
+   
+
+
         stage('SonarQube End') {
             steps {
                 withSonarQubeEnv('SonarQube') {
