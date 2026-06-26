@@ -11,7 +11,7 @@ pipeline {
     
         stage('Trivy Scan') {
             steps {
-                sh 'trivy fs --exit-code 1 --severity HIGH,CRITICAL .'
+                sh 'trivy fs --severity HIGH,CRITICAL .'
             }
         }
 
@@ -76,4 +76,32 @@ pipeline {
             }
         }
     }
+
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t simple-dotnet-web-app .'
+            }
+        }
+
+
+        stage('Trivy Image Scan') {
+            steps {
+                sh 'trivy image --exit-code 1 --severity HIGH,CRITICAL simple-dotnet-web-app'
+            }
+        }
+
+        stage('Trivy Scan') {
+            steps {
+                sh 'trivy fs --exit-code 1 --severity HIGH,CRITICAL .'
+            }
+        }
+
+
+        stage('Sonar Report Link') {
+            steps {
+                echo "Sonar report: http://localhost:9000/dashboard?id=simple-dotnet-web-app"
+            }
+        }
+
 }
