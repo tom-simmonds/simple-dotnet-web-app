@@ -47,6 +47,7 @@ pipeline {
         stage('Trivy HTML Report') {
             steps {
                 sh '''
+                wget https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -O html.tpl \
                 trivy fs --format template \
                 --template "@contrib/html.tpl" \
                 -o trivy-report.html \
