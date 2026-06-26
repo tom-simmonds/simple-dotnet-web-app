@@ -84,8 +84,7 @@ pipeline {
 
         stage('Sonar Report Link') {
             steps {
-                echo "Sonar report: http://localhost:9000/dashboard?id=simple-dotnet-web-app"
+                echo 'http://localhost:9000/dashboard?id=simple-dotnet-web-appView Sonar Report</a>'
             }
         }
-    }
 }
