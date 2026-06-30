@@ -43,7 +43,7 @@ pipeline {
 
         stage('Trivy FS Quality Gate') {
             steps {
-                sh 'trivy image --severity HIGH,CRITICAL --exit-code 1 --quiet .'
+                sh 'trivy fs --severity HIGH,CRITICAL --exit-code 1 --quiet .'
             }
         }
 
