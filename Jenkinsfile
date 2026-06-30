@@ -41,6 +41,12 @@ pipeline {
             }
         }
 
+        stage('Trivy FS Quality Gate') {
+            steps {
+                sh 'trivy image --severity HIGH,CRITICAL --exit-code 1 --quiet .'
+            }
+        }
+
         stage('Trivy HTML Report') {
             steps {
                 sh '''
@@ -81,9 +87,6 @@ pipeline {
                 waitForQualityGate abortPipeline: true
             }
         }
-
-
-
 
 
         stage('Sonar Report Link') {
